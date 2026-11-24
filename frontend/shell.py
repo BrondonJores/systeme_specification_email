@@ -1,4 +1,4 @@
-from dash import Input, Output, dcc, html
+from dash import Input, Output, State, dcc, html
 
 from backend.reader import lire_derniers
 
@@ -37,8 +37,12 @@ def register_shell(app):
         Output("store-mails", "data"),
         Output("out-refresh", "children"),
         Input("btn-refresh", "n_clicks"),
+        State("store-mails", "data"),
         prevent_initial_call=True,
     )
-    def _refresh(n):
-        mails = lire_derniers(5)
+    def _refresh(n, anciens):
+        try:
+            mails = lire_derniers(5)
+        except Exception as e:
+            return anciens, f"Echec : {e}"
         return mails, f"{len(mails)} mails chargés."

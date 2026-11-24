@@ -29,5 +29,8 @@ def register(app):
         prevent_initial_call=True,
     )
     def _envoyer(n, dest, nom, prenom, message, fichier):
-        envoyer(dest, nom, prenom, message, fichier or None)
+        try:
+            envoyer(dest, nom, prenom, message, fichier or None)
+        except Exception as e:
+            return f"Echec : {e}"
         return f"Mail envoyé à {dest}."

@@ -24,5 +24,8 @@ def register(app):
         prevent_initial_call=True,
     )
     def _alerter(n, mails, mot, dest):
-        nb = mail_filters.alerter_si_mot_cle(mails or [], mot, dest)
+        try:
+            nb = mail_filters.alerter_si_mot_cle(mails or [], mot, dest)
+        except Exception as e:
+            return f"Echec : {e}"
         return f"{nb} alerte(s) envoyée(s) à {dest}."
