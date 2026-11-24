@@ -2,15 +2,27 @@
 
 Règle SOLID : aucun smtplib/imaplib ici, tout passe par backend/.
 """
+import plotly.graph_objects as go
 from dash import Input, Output, State, ctx
 
 from backend import filters as mail_filters
 from backend.reader import lire_derniers
 from backend.sender import envoyer
+from backend.stats import repartition_expediteurs
 
 
 def _lignes(mails):
     return [{k: m[k] for k in ("expediteur", "sujet", "date")} for m in mails]
+
+
+def _figure(mails):
+    """Camembert de répartition par expéditeur."""
+    if not mails:
+        return {}
+    labels, valeurs = repartition_expediteurs(mails)
+    fig = go.Figure(go.Pie(labels=labels, values=valeurs))
+    fig.update_layout(title="Répartition par expéditeur")
+    return fig
 
 
 def register_callbacks(app):
@@ -31,6 +43,7 @@ def register_callbacks(app):
     @app.callback(
         Output("store-mails", "data"),
         Output("table-mails", "data"),
+        Output("graph-camembert", "figure"),
         Input("btn-refresh", "n_clicks"),
         Input("btn-filtrer", "n_clicks"),
         State("in-filtre-exp", "value"),
@@ -48,7 +61,7 @@ def register_callbacks(app):
                 sujet_contient=sujet or None,
                 motif=motif or None,
             )
-        return mails, _lignes(affiches)
+        return mails, _lignes(affiches), _figure(mails)
 
     @app.callback(
         Output("out-archive", "children"),

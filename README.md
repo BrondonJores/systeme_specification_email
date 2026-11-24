@@ -20,6 +20,8 @@ Puis ouvrir http://127.0.0.1:8050 dans le navigateur.
 - `backend/sender.py` : envoi de mails (S : un seul rôle).
 - `backend/reader.py` : lecture des derniers mails.
 - `backend/filters.py` : filtre, archivage, alerte mot-clé.
+- `backend/stats.py` : stats pour les graphiques.
+- `assets/style.css` : CSS du dashboard (chargé auto par Dash).
 - `frontend/layout.py` : mise en page Dash.
 - `frontend/callbacks.py` : relie chaque bouton à une fonction backend.
 - `app.py` : assemble front + back.
