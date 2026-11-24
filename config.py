@@ -1,8 +1,10 @@
 import os
+import socket
 
 from dotenv import load_dotenv
 
 load_dotenv()
+socket.setdefaulttimeout(30)
 
 EMAIL = os.getenv("EMAIL_USER", "etudiant.test@gmail.com")
 PASSWORD = os.getenv("EMAIL_PASSWORD", "xxxx xxxx xxxx xxxx")
