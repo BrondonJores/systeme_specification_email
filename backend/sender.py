@@ -20,7 +20,7 @@ def envoyer(destinataire, nom, prenom, message, fichier=None):
                 filename=fichier,
             )
 
-    with smtplib.SMTP_SSL(config.SMTP_HOST, config.SMTP_PORT) as smtp:
+    with smtplib.SMTP_SSL(config.SMTP_HOST, config.SMTP_PORT, timeout=30) as smtp:
         smtp.login(config.EMAIL, config.PASSWORD)
         smtp.send_message(msg)
     return True

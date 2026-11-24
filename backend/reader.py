@@ -18,7 +18,7 @@ def _decode(value):
 
 def lire_derniers(n=5):
     mails = []
-    with imaplib.IMAP4_SSL(config.IMAP_HOST) as imap:
+    with imaplib.IMAP4_SSL(config.IMAP_HOST, timeout=30) as imap:
         imap.login(config.EMAIL, config.PASSWORD)
         imap.select("INBOX")
         _, ids = imap.search(None, "ALL")
