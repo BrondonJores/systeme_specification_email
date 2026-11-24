@@ -9,8 +9,16 @@ Interface Dash, logique mail en stdlib (`smtplib`, `imaplib`).
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-EMAIL_USER="moi@gmail.com" EMAIL_PASSWORD="xxxx xxxx xxxx xxxx" python app.py
+cp .env.example .env
 ```
+
+Puis mets ton adresse et ton mot de passe d'application dans `.env`, et lance :
+
+```bash
+python app.py
+```
+
+Plus besoin de passer par le terminal à chaque fois. Les variables d'environnement gardent la priorité sur `.env`.
 
 Puis ouvrir http://127.0.0.1:8050 dans le navigateur.
 
