@@ -1,7 +1,3 @@
-"""Callbacks Dash : chaque bouton appelle UNE fonction backend.
-
-Règle SOLID : aucun smtplib/imaplib ici, tout passe par backend/.
-"""
 import plotly.graph_objects as go
 from dash import Input, Output, State, ctx
 
@@ -15,13 +11,21 @@ def _lignes(mails):
     return [{k: m[k] for k in ("expediteur", "sujet", "date")} for m in mails]
 
 
-def _figure(mails):
-    """Camembert de répartition par expéditeur."""
+def _camembert(mails):
     if not mails:
         return {}
     labels, valeurs = repartition_expediteurs(mails)
     fig = go.Figure(go.Pie(labels=labels, values=valeurs))
     fig.update_layout(title="Répartition par expéditeur")
+    return fig
+
+
+def _barres(mails):
+    if not mails:
+        return {}
+    labels, valeurs = repartition_expediteurs(mails)
+    fig = go.Figure(go.Bar(x=labels, y=valeurs))
+    fig.update_layout(title="Top expéditeurs")
     return fig
 
 
@@ -44,6 +48,9 @@ def register_callbacks(app):
         Output("store-mails", "data"),
         Output("table-mails", "data"),
         Output("graph-camembert", "figure"),
+        Output("graph-barres", "figure"),
+        Output("kpi-mails", "children"),
+        Output("kpi-expediteurs", "children"),
         Input("btn-refresh", "n_clicks"),
         Input("btn-filtrer", "n_clicks"),
         State("in-filtre-exp", "value"),
@@ -61,7 +68,15 @@ def register_callbacks(app):
                 sujet_contient=sujet or None,
                 motif=motif or None,
             )
-        return mails, _lignes(affiches), _figure(mails)
+        expediteurs = {m["expediteur"] for m in mails}
+        return (
+            mails,
+            _lignes(affiches),
+            _camembert(mails),
+            _barres(mails),
+            f"{len(mails)} mails lus",
+            f"{len(expediteurs)} expéditeurs",
+        )
 
     @app.callback(
         Output("out-archive", "children"),

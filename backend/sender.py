@@ -1,4 +1,3 @@
-"""Envoi de mails (un seul rôle : envoyer)."""
 import smtplib
 from email.message import EmailMessage
 
@@ -6,10 +5,6 @@ import config
 
 
 def envoyer(destinataire, nom, prenom, message, fichier=None):
-    """Envoie un mail personnalisé, avec pièce jointe optionnelle.
-
-    fichier : chemin local optionnel (ex: "facture.pdf").
-    """
     msg = EmailMessage()
     msg["From"] = config.EMAIL
     msg["To"] = destinataire

@@ -1,4 +1,3 @@
-"""Configuration centrale (seul endroit avec les identifiants)."""
 import os
 
 EMAIL = os.getenv("EMAIL_USER", "etudiant.test@gmail.com")

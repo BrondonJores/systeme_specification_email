@@ -1,9 +1,7 @@
-"""Statistiques sur les mails (un seul rôle : compter)."""
 from collections import Counter
 
 
 def repartition_expediteurs(mails, top=5):
-    """Retourne (labels, valeurs) pour le camembert : top expéditeurs + Autres."""
     compteur = Counter(m["expediteur"] for m in mails)
     plus_frequents = compteur.most_common(top)
     labels = [exp[:30] for exp, _ in plus_frequents]

@@ -17,6 +17,58 @@ body {
     margin: 0;
 }
 
+.header p {
+    margin: 5px 0 0 0;
+    opacity: 0.85;
+}
+
+.navbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.navbar a {
+    background: white;
+    color: #1f3a5f;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a:hover {
+    background: #1f3a5f;
+    color: white;
+}
+
+.kpi-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.kpi {
+    flex: 1;
+    background: #1f3a5f;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.graph-row {
+    display: flex;
+    gap: 15px;
+}
+
+.graph-row > div {
+    flex: 1;
+}
+
 .card {
     background: white;
     padding: 15px 20px;

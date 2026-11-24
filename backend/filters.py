@@ -1,4 +1,3 @@
-"""Filtres, archivage et alerte (un seul rôle : traiter les mails lus)."""
 import os
 import re
 
@@ -7,7 +6,6 @@ from backend.sender import envoyer
 
 
 def filtrer(mails, expediteur=None, sujet_contient=None, motif=None):
-    """Filtre une liste de mails. Critères optionnels et cumulables."""
     resultats = []
     for mail in mails:
         if expediteur and expediteur.lower() not in mail["expediteur"].lower():
@@ -21,7 +19,6 @@ def filtrer(mails, expediteur=None, sujet_contient=None, motif=None):
 
 
 def archiver(mail, categorie):
-    """Sauvegarde un mail en .txt dans archives/<categorie>/."""
     dossier = os.path.join(config.ARCHIVE_DIR, categorie)
     os.makedirs(dossier, exist_ok=True)
     nom = re.sub(r"[^\w\-]", "_", mail["sujet"][:30]) or "sans_sujet"
@@ -36,7 +33,6 @@ def archiver(mail, categorie):
 
 
 def alerter_si_mot_cle(mails, mot_cle, destinataire):
-    """Envoie une alerte mail si mot_cle trouvé. Retourne le nb d'alertes."""
     alertes = 0
     for mail in mails:
         if re.search(mot_cle, mail["sujet"] + mail["corps"], re.IGNORECASE):

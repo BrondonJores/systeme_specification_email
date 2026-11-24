@@ -1,4 +1,3 @@
-"""Lecture des mails (un seul rôle : lire)."""
 import imaplib
 from email import message_from_bytes
 from email.header import decode_header
@@ -18,7 +17,6 @@ def _decode(value):
 
 
 def lire_derniers(n=5):
-    """Retourne les n derniers mails : expediteur, sujet, date, corps."""
     mails = []
     with imaplib.IMAP4_SSL(config.IMAP_HOST) as imap:
         imap.login(config.EMAIL, config.PASSWORD)

@@ -1,4 +1,3 @@
-"""Point d'entrée : assemble le layout et les callbacks."""
 from dash import Dash
 
 from frontend.callbacks import register_callbacks
